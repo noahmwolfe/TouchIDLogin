@@ -15,15 +15,5 @@ namespace XamarinFingerprint
             GlobalObject.curMainPage = this;
             Navigation.PushModalAsync(new LoginPage());
         }
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            DependencyService.Get<Interface.TouchIDAuthentication>().Authenticate();
-            //bool canFingerprint = DependencyService.Get<Interface.TouchIDAuthentication>().IsFingerprintAuthenticationPossible();
-            //if (canFingerprint)
-            //{
-            //    DependencyService.Get<Interface.TouchIDAuthentication>().Authenticate();
-            //}
-
-        }
     }
 }

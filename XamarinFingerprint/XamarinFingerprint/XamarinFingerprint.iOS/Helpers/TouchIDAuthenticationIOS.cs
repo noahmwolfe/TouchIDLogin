@@ -10,6 +10,7 @@ using ObjCRuntime;
 using System.Threading.Tasks;
 using Security;
 using XamarinFingerprint.iOS.Helpers;
+using DeviceCheck;
 
 [assembly: Xamarin.Forms.Dependency(typeof(TouchIDAuthenticationIOS))]
 namespace XamarinFingerprint.iOS.Helpers
@@ -20,6 +21,7 @@ namespace XamarinFingerprint.iOS.Helpers
 
         public void Authenticate(Action successAction, Action failAction)
         {
+            _context = new LAContext();
             NSError AuthError;
             if (_context.CanEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, out AuthError))
             {

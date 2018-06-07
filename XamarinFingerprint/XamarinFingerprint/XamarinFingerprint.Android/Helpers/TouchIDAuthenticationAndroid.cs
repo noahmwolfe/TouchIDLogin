@@ -91,9 +91,7 @@ namespace XamarinFingerprint.Droid.Helpers
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        var success_page = new SuccessPage();
-                        Xamarin.Forms.Application.Current.MainPage.Navigation.PushPopupAsync(success_page);
-
+                        Xamarin.Forms.Application.Current.MainPage.Navigation.PopPopupAsync();
                     });
                     //Do the thing when success to pass
                     if (successAction != null)

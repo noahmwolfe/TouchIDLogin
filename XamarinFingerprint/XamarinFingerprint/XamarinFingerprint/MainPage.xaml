@@ -4,9 +4,8 @@
              xmlns:local="clr-namespace:XamarinFingerprint"
              x:Class="XamarinFingerprint.MainPage">
 
-	<Label Text="Welcome to Xamarin Forms!" 
+    <Label Text="You Have Successfully Logged In!" 
            VerticalOptions="Center" 
            HorizontalOptions="Center" />
-    <Button Text="Start" Clicked="Button_Clicked"/>
 
 </ContentPage>

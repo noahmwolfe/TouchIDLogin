@@ -21,7 +21,7 @@ namespace XamarinFingerprint
         {
             if (usernameEntry.Text.Equals("noahmwolfe") && passwordEntry.Text.Equals("1234"))
             {
-                Navigation.PopModalAsync();
+                LoginSuccessful();
             }
             else
             {
@@ -45,11 +45,14 @@ namespace XamarinFingerprint
         }
         protected override void OnAppearing()
         {
-            bool touch_id_enabled = true;
-            if (touch_id_enabled)
             {
-                DependencyService.Get<Interface.TouchIDAuthentication>().Authenticate();
+                Action login_success = LoginSuccessful;
+                DependencyService.Get<Interface.TouchIDAuthentication>().Authenticate(login_success, null);
             }
+        }
+        private void LoginSuccessful()
+        {
+            Navigation.PopModalAsync();
         }
     }
 }
