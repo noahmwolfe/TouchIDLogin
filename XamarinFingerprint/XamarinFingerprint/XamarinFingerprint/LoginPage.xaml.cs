@@ -13,6 +13,7 @@ namespace XamarinFingerprint
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        public event EventHandler LoginSucceeded;
         public LoginPage()
         {
             InitializeComponent();
@@ -52,7 +53,10 @@ namespace XamarinFingerprint
         }
         private void LoginSuccessful()
         {
-            Navigation.PopModalAsync();
+            if (LoginSucceeded != null)
+            {
+                LoginSucceeded(this, EventArgs.Empty);
+            }
         }
     }
 }
