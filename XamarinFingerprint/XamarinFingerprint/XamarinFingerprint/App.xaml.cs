@@ -4,15 +4,20 @@ using System.Linq;
 using System.Text;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace XamarinFingerprint
 {
     public partial class App : Application
     {
+        public static string AppName { get { return "TouchIDApp"; } }
+        public static Interface.ICredentialsService CredentialsService { get; private set; }
+
         public App()
         {
             InitializeComponent();
-
+            CredentialsService = new CredentialsService();
             MainPage = new XamarinFingerprint.MainPage();
         }
 

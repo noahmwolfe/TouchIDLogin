@@ -21,7 +21,7 @@ namespace XamarinFingerprint.Droid.Helpers
 {
     public class TouchIDAuthenticationAndroid : Interface.TouchIDAuthentication
     {
-        Android.Support.V4.OS.CancellationSignal cancellationSignal = new Android.Support.V4.OS.CancellationSignal();
+        Android.Support.V4.OS.CancellationSignal cancellationSignal = new Android.Support.V4.OS.CancellationSignal();        
         public bool IsHardwareDetected()
         {
             FingerprintManagerCompat fingerprintManager = FingerprintManagerCompat.From(Android.App.Application.Context);

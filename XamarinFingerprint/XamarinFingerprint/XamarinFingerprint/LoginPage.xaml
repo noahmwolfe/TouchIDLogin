@@ -4,6 +4,7 @@
              x:Class="XamarinFingerprint.LoginPage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand">
+            <Label x:Name="messageLabel" />
             <Label Text="Username" />
             <Entry x:Name="usernameEntry" Placeholder="username" />
             <Label Text="Password" />

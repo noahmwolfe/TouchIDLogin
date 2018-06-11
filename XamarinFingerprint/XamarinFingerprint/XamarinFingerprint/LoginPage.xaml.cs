@@ -14,29 +14,43 @@ namespace XamarinFingerprint
     public partial class LoginPage : ContentPage
     {
         public event EventHandler LoginSucceeded;
+        public static Interface.ICredentialsService CredentialsService { get; private set; }
         public LoginPage()
         {
             InitializeComponent();
         }
         private void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            if (usernameEntry.Text.Equals("noahmwolfe") && passwordEntry.Text.Equals("1234"))
-            {
-                LoginSuccessful();
-            }
-            else
-            {
+           
+   
+            string username = usernameEntry.Text;
+            string password = passwordEntry.Text;
 
+            var isValid = AreCredentialsCorrect(username, username);
+            if (isValid)
+            {
+                LoginAttempt();
             }
-            //bool canFingerprint = DependencyService.Get<Interface.TouchIDAuthentication>().IsFingerprintAuthenticationPossible();
-            //if (canFingerprint)
-            //{
-            //    DependencyService.Get<Interface.TouchIDAuthentication>().Authenticate();
-            //}
-
         }
         private void OnSignUpButtonClicked(object sender, EventArgs e)
         {
+            string username = usernameEntry.Text;
+            string password = passwordEntry.Text;
+            CredentialsService = new CredentialsService();
+            bool doCredentialsExist = CredentialsService.DoCredentialsExist();
+            if (!doCredentialsExist)
+            {
+                CredentialsService.SaveCredentials(username, password);
+                messageLabel.Text = "Credentials Added to Keychain";
+            }
+            else
+            {
+                messageLabel.Text = "Credentials already exist";
+                passwordEntry.Text = string.Empty;
+            }
+
+
+
             //bool canFingerprint = DependencyService.Get<Interface.TouchIDAuthentication>().IsFingerprintAuthenticationPossible();
             //if (canFingerprint)
             //{
@@ -47,16 +61,23 @@ namespace XamarinFingerprint
         protected override void OnAppearing()
         {
             {
-                Action login_success = LoginSuccessful;
-                DependencyService.Get<Interface.TouchIDAuthentication>().Authenticate(login_success, null);
+                Action login_attempt = LoginAttempt;
+                DependencyService.Get<Interface.TouchIDAuthentication>().Authenticate(login_attempt, null);
             }
         }
-        private void LoginSuccessful()
+        private void LoginAttempt()
         {
-            if (LoginSucceeded != null)
+            var credentials = new CredentialsService();
+            string username = credentials.UserName;
+            string password = credentials.Password;
+            if (LoginSucceeded != null && AreCredentialsCorrect(username, password))
             {
                 LoginSucceeded(this, EventArgs.Empty);
             }
+        }
+        bool AreCredentialsCorrect(string username, string password)
+        {
+            return username == "noah" && password == "1234";
         }
     }
 }
